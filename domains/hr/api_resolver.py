@@ -1,7 +1,8 @@
 from langchain.agents.tools import BaseTool
-from domains.hr.apis.api_registry import HR_FUNCTION_REGISTRY
 
 from domains.hr.apis import custom_apis, merge_apis
+from domains.hr.apis.api_registry import HR_FUNCTION_REGISTRY
+
 
 class HRAPIResolverTool(BaseTool):
     name = "HRAPIResolver"
@@ -14,7 +15,7 @@ class HRAPIResolverTool(BaseTool):
     If you want to get employee list, say "get_employee_list" as it doesn't have any arguments.
 
     Make sure your string contains all the information that is needed by the function in the right format.
-    """ 
+    """
 
     def fill_description(self) -> None:
         """
@@ -24,16 +25,16 @@ class HRAPIResolverTool(BaseTool):
 
         for key in HR_FUNCTION_REGISTRY:
             function_name = key
-            docstring = HR_FUNCTION_REGISTRY[key]['docstring']
+            docstring = HR_FUNCTION_REGISTRY[key]["docstring"]
             description_of_all_functions += "Function Name: " + function_name + "\n"
             description_of_all_functions += "Docstring: " + docstring + "\n\n"
-        
+
         self.description = self.description.format(description_of_all_functions)
 
     def __init__(self) -> None:
         super().__init__()
         self.fill_description()
-        
+
     def _run(self, query: str) -> str:
         # get_employees_under_manager; Sashank, Gondala
         print("\n Query to HR API resolver - ", query)
@@ -41,7 +42,7 @@ class HRAPIResolverTool(BaseTool):
         function_name = query[0].strip()
 
         if function_name in HR_FUNCTION_REGISTRY:
-            function = HR_FUNCTION_REGISTRY[function_name]['function']
+            function = HR_FUNCTION_REGISTRY[function_name]["function"]
             # module = HR_FUNCTION_REGISTRY[function_name]['module']
             args = query[1].strip().split(",")
             args = [arg.strip() for arg in args]
@@ -51,7 +52,8 @@ class HRAPIResolverTool(BaseTool):
     async def _arun(self, query: str) -> str:
         """Use the tool asynchronously."""
         raise NotImplementedError("Does not support async")
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     tool = HRAPIResolverTool()
     print(tool.description)

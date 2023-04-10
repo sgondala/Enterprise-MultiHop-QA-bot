@@ -2,6 +2,7 @@
 
 from domains.hr.apis.api_registry import register_hr_api
 
+
 @register_hr_api
 def get_employees_under_manager(manager_first_name, manager_last_name):
     """
@@ -16,11 +17,11 @@ def get_employees_under_manager(manager_first_name, manager_last_name):
     """
     if manager_first_name == "Sashank" and manager_last_name == "Gondala":
         return [
-            "Alfred, Hitchcock", 
-            "Steven, Spielberg", 
-            "James, Cameron", 
-            "Christopher, Nolan", 
-            "Quentin, Tarantino"
+            "Alfred, Hitchcock",
+            "Steven, Spielberg",
+            "James, Cameron",
+            "Christopher, Nolan",
+            "Quentin, Tarantino",
         ]
     else:
         assert False, "Manager not found"

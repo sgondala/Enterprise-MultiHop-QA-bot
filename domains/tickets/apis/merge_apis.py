@@ -2,8 +2,11 @@
 
 from domains.tickets.apis.api_registry import register_ticket_api
 
+
 @register_ticket_api
-def get_number_of_tickets_per_employee(employee_first_name: str , employee_last_name: str) -> int:
+def get_number_of_tickets_per_employee(
+    employee_first_name: str, employee_last_name: str
+) -> int:
     """
     Returns the number of tickets per employee
 
@@ -28,6 +31,7 @@ def get_number_of_tickets_per_employee(employee_first_name: str , employee_last_
         return 4
     else:
         assert False, "Employee not found"
+
 
 @register_ticket_api
 def get_number_of_comments_per_ticket(ticket_id: str) -> int:

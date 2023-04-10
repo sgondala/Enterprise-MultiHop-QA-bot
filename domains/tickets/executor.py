@@ -1,8 +1,9 @@
+from langchain.agents import AgentType, initialize_agent
 from langchain.agents.tools import BaseTool
-from domains.tickets.api_resolver import TicketAPIResolverTool
-from langchain.agents import AgentType
 from langchain.llms import OpenAI
-from langchain.agents import initialize_agent
+
+from domains.tickets.api_resolver import TicketAPIResolverTool
+
 
 class TicketExecutorTool(BaseTool):
     name = "TicketExecutor"
@@ -13,12 +14,14 @@ class TicketExecutorTool(BaseTool):
     If you want to get the number of tickets assigned to a person X, say "Number of tickets assigned to X" and so on
     Make sure your string contains all the information that is needed to get the result.
     """
-    
+
     def _run(self, query: str) -> str:
         print("\n Query to Ticket Domain executor - ", query)
         tools = [TicketAPIResolverTool()]
         llm = OpenAI(temperature=0)
-        agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+        agent = initialize_agent(
+            tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
+        )
         return agent.run(query)
 
     async def _arun(self, query: str) -> str:
