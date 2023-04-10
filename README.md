@@ -1,5 +1,7 @@
 # Enterprise-MultiHop-QA-bot
 
+This is a demo repository for how to approach building a enterprise QA bot. This is a modular and hierarchical design, which would scale better than a flat design.
+
 This repo has two enterprise domains - hr and tickets   
 
 Each domain has an executor and api_resolver  
